@@ -1,0 +1,21 @@
+sources:
+  - name: dongqiudi
+    display_name: "懂球帝"
+    base_url: "https://www.dongqiudi.com/"
+    enabled: true
+    crawler_module: "football_news_hub.crawler.dongqiudi"
+    crawler_class: "DongqiudiCrawler"
+    max_pages: 1
+    request_delay: 2.0
+    selectors:
+      article_list: ".detail, .news-item, [class*='article'], [class*='feed-item']"
+      title: "h2, h3, h4, [class*='title']"
+      url: "a"
+      image: "img"
+      category: "[class*='tag'], [class*='category'], [class*='label']"
+      comment_count: "[class*='comment']"
+      published_at: "[class*='time'], [class*='meta']"
+      next_page: "[class*='next'], [class*='more']"
+
+storage_path: "data/articles.db"
+log_level: "INFO"
