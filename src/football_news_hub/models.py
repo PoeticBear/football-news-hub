@@ -8,6 +8,7 @@ from pydantic import BaseModel, Field
 
 class SourceName(str, Enum):
     DONGQIUDI = "dongqiudi"
+    ARSENAL = "arsenal"
 
 
 class Article(BaseModel):
@@ -17,6 +18,7 @@ class Article(BaseModel):
     category: str | None = None
     comment_count: int | None = None
     published_at: datetime | None = None
+    content: str | None = None
     source: SourceName
     crawled_at: datetime = Field(default_factory=datetime.now)
 
@@ -30,3 +32,4 @@ class CrawlResult(BaseModel):
     articles: list[Article]
     crawled_at: datetime = Field(default_factory=datetime.now)
     error: str | None = None
+    stopped_early: bool = False

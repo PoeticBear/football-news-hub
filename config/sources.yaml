@@ -6,6 +6,8 @@ sources:
     crawler_module: "football_news_hub.crawler.dongqiudi"
     crawler_class: "DongqiudiCrawler"
     max_pages: 1
+    incremental_max_pages: 10
+    stop_on_seen_articles: true
     request_delay: 2.0
     selectors:
       article_list: ".detail, .news-item, [class*='article'], [class*='feed-item']"
@@ -17,5 +19,39 @@ sources:
       published_at: "[class*='time'], [class*='meta']"
       next_page: "[class*='next'], [class*='more']"
 
+  - name: arsenal
+    display_name: "Arsenal Official"
+    base_url: "https://www.arsenal.com/results"
+    enabled: true
+    crawler_module: "football_news_hub.crawler.arsenal"
+    crawler_class: "ArsenalCrawler"
+    max_pages: 1
+    incremental_max_pages: 5
+    stop_on_seen_articles: true
+    request_delay: 3.0
+    selectors:
+      article_list: ".results-list__item, .result-item"
+      title: "h3, h4, .result-title"
+      url: "a"
+      image: "img"
+      category: "[class*='competition']"
+      comment_count: null
+      published_at: "[class*='date']"
+      next_page: null
+
 storage_path: "data/articles.db"
 log_level: "INFO"
+
+llm:
+  provider: minimax
+  api_key: "sk-cp-Qg1BNBk1_eq6UREqDZXcWZVwvqGnALT0hBAPuEGbwh2XOSfZW6t0KcO9VXou9pXv4yio9-GB-k8fvPwxyaKHIvaasJZKtpke2-hBdIkh-Uwyo8tel4jRtFA"
+  base_url: "https://api.minimaxi.com/v1"
+  model: "MiniMax-M2.7"
+  output_dir: "data/scripts"
+
+tts:
+  model: "speech-2.8-hd"
+  voice_id: "moss_audio_ce44fc67-7ce3-11f0-8de5-96e35d26fb85"
+  speed: 1.0
+  emotion: "calm"
+  output_dir: "data/audio"

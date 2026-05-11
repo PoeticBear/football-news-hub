@@ -79,16 +79,17 @@ def crawl_source(source_name: str) -> dict:
     if not source:
         return {"error": f"Source '{source_name}' not found or disabled"}
 
-    crawler = _build_crawler(source)
-    result = asyncio.run(crawler.crawl())
-
     storage = _get_storage()
+    known_urls = storage.get_known_urls(source.name)
+    crawler = _build_crawler(source)
+    result = asyncio.run(crawler.crawl_incremental(known_urls))
     saved = storage.save_crawl_result(result)
 
     return {
         "source": result.source.value,
         "total_articles": len(result.articles),
         "new_articles": saved,
+        "stopped_early": result.stopped_early,
         "error": result.error,
         "articles": [
             {
@@ -108,22 +109,24 @@ def crawl_all() -> dict:
     """Crawl articles from all enabled data sources."""
     config = _get_config()
     sources = config.get_enabled_sources()
+    storage = _get_storage()
     results = {}
 
     for source in sources:
         try:
+            known_urls = storage.get_known_urls(source.name)
             crawler = _build_crawler(source)
-            result = asyncio.run(crawler.crawl())
-            storage = _get_storage()
+            result = asyncio.run(crawler.crawl_incremental(known_urls))
             saved = storage.save_crawl_result(result)
             results[source.name.value] = {
                 "total": len(result.articles),
                 "new": saved,
+                "stopped_early": result.stopped_early,
                 "error": result.error,
             }
         except Exception as e:
             logger.error(f"Error crawling {source.name.value}: {e}")
-            results[source.name.value] = {"total": 0, "new": 0, "error": str(e)}
+            results[source.name.value] = {"total": 0, "new": 0, "stopped_early": False, "error": str(e)}
 
     return results
 

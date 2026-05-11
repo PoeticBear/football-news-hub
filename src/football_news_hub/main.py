@@ -29,6 +29,7 @@ _ensure_crawlers_registered()
 def crawl(
     source: Optional[str] = typer.Argument(None, help="Data source name (e.g. dongqiudi). Omit to crawl all enabled sources."),
     config_path: Optional[Path] = typer.Option(None, "--config", "-c", help="Path to config file"),
+    with_content: bool = typer.Option(False, "--with-content", "-w", help="Fetch full article content"),
 ) -> None:
     """Crawl articles from data sources."""
     config = load_config(config_path)
@@ -52,10 +53,86 @@ def crawl(
         crawler_cls = get_crawler_class(source_config.name)
         crawler = crawler_cls(source_config)
 
+        if with_content:
+            crawler.fetch_content = True
+
         result = asyncio.run(crawler.crawl())
         saved = storage.save_crawl_result(result)
 
         console.print(f"  Found: {len(result.articles)} articles, New: {saved}")
+        if with_content:
+            content_count = sum(1 for a in result.articles if a.content)
+            console.print(f"  With content: {content_count}")
+        if result.error:
+            console.print(f"  [red]Error: {result.error}[/red]")
+
+        if result.articles:
+            table = Table(show_header=True, header_style="bold")
+            table.add_column("Title", max_width=60)
+            table.add_column("Category", max_width=10)
+            table.add_column("Comments", max_width=8)
+            table.add_column("Published", max_width=16)
+            for article in result.articles[:15]:
+                table.add_row(
+                    article.title[:60],
+                    article.category or "-",
+                    str(article.comment_count) if article.comment_count else "-",
+                    article.published_at.strftime("%m-%d %H:%M") if article.published_at else "-",
+                )
+            console.print(table)
+
+    storage.close()
+
+
+@app.command(name="crawl-incremental")
+def crawl_incremental(
+    source: Optional[str] = typer.Argument(None, help="Data source name (e.g. dongqiudi). Omit to crawl all enabled sources."),
+    config_path: Optional[Path] = typer.Option(None, "--config", "-c", help="Path to config file"),
+    max_pages: Optional[int] = typer.Option(None, "--max-pages", "-m", help="Override max pages for incremental crawl"),
+    no_stop_early: bool = typer.Option(False, "--no-stop-early", help="Don't stop when encountering known articles"),
+    with_content: bool = typer.Option(False, "--with-content", "-w", help="Fetch full article content"),
+) -> None:
+    """Incrementally crawl articles - fetches new articles since last crawl."""
+    config = load_config(config_path)
+    storage = Storage(config.storage_path)
+
+    if source:
+        source_enum = SourceName(source)
+        source_config = config.get_source(source_enum)
+        if not source_config:
+            console.print(f"[red]Source '{source}' not found or disabled[/red]")
+            raise typer.Exit(1)
+        sources = [source_config]
+    else:
+        sources = config.get_enabled_sources()
+        if not sources:
+            console.print("[yellow]No enabled sources found[/yellow]")
+            raise typer.Exit(0)
+
+    for source_config in sources:
+        known_urls = storage.get_known_urls(source_config.name)
+        console.print(f"\n[bold blue]Incremental Crawl: {source_config.display_name}[/bold blue]")
+        console.print(f"  Known articles: {len(known_urls)}")
+
+        crawler_cls = get_crawler_class(source_config.name)
+        crawler = crawler_cls(source_config)
+
+        if no_stop_early:
+            crawler.stop_on_seen_articles = False
+        if max_pages is not None:
+            crawler.incremental_max_pages = max_pages
+        if with_content:
+            crawler.fetch_content = True
+
+        result = asyncio.run(crawler.crawl_incremental(known_urls))
+        saved = storage.save_crawl_result(result)
+
+        if result.stopped_early:
+            console.print(f"  [green]Stopped early (reached known articles)[/green]")
+        console.print(f"  Found: {len(result.articles)} new articles, Saved: {saved}")
+        if with_content:
+            content_count = sum(1 for a in result.articles if a.content)
+            console.print(f"  With content: {content_count}")
         if result.error:
             console.print(f"  [red]Error: {result.error}[/red]")
 
@@ -170,6 +247,37 @@ def stats(
         console.print("\n[bold]Last Crawl:[/bold]")
         for src, ts in s["last_crawl"].items():
             console.print(f"  {src}: {ts}")
+
+    storage.close()
+
+
+@app.command()
+def export(
+    output: Path = typer.Option(Path("data/articles.json"), "--output", "-o", help="Output JSON file path"),
+    source: Optional[str] = typer.Option(None, "--source", "-s", help="Filter by source"),
+    category: Optional[str] = typer.Option(None, "--category", "-cat", help="Filter by category"),
+    keyword: Optional[str] = typer.Option(None, "--keyword", "-k", help="Filter by keyword"),
+    no_content: bool = typer.Option(False, "--no-content", help="Exclude article content from export"),
+    config_path: Optional[Path] = typer.Option(None, "--config", "-c", help="Path to config file"),
+) -> None:
+    """Export articles to a JSON file."""
+    config = load_config(config_path)
+    storage = Storage(config.storage_path)
+
+    source_enum = SourceName(source) if source else None
+    count = storage.export_json(
+        output_path=output,
+        source=source_enum,
+        category=category,
+        keyword=keyword,
+        with_content=not no_content,
+    )
+
+    console.print(f"[bold green]Exported {count} articles to {output}[/bold green]")
+    if no_content:
+        console.print("[dim]  (content excluded)[/dim]")
+    else:
+        console.print("[dim]  (with full content)[/dim]")
 
     storage.close()
 

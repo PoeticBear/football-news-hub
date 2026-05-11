@@ -231,10 +231,94 @@
     margin: 0 auto 12px;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
+  button.ai-btn {
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    border-color: #8b5cf6;
+    color: #fff;
+    font-weight: 600;
+  }
+  button.ai-btn:hover { background: linear-gradient(135deg, #7c3aed, #4f46e5); }
+  button.tts-btn {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    border-color: #f59e0b;
+    color: #fff;
+    font-weight: 600;
+  }
+  button.tts-btn:hover { background: linear-gradient(135deg, #d97706, #dc2626); }
+  button.tts-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  button.test-btn {
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    border-color: #06b6d4;
+    color: #fff;
+    font-weight: 600;
+  }
+  button.test-btn:hover { background: linear-gradient(135deg, #0891b2, #0e7490); }
+  button.test-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-header h2 { font-size: 18px; }
+  .modal-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 4px 8px;
+  }
+  .modal-close:hover { color: var(--text); border: none; }
+  .modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+  }
+  .modal-body pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+  }
+  .modal-footer {
+    padding: 12px 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .modal-footer .info { font-size: 12px; color: var(--text-secondary); }
   @media (max-width: 768px) {
     .articles { grid-template-columns: 1fr; }
     .search-box input { width: 120px; }
     .header-inner { gap: 10px; }
+    .modal { width: 95%; max-height: 90vh; }
   }
 </style>
 </head>
@@ -256,6 +340,9 @@
         <option value="dongqiudi">懂球帝</option>
       </select>
       <button class="primary" onclick="crawlAndRefresh()">🔄 爬取最新</button>
+      <button class="ai-btn" onclick="generateScript()">🎙️ AI 播报稿</button>
+      <button class="tts-btn" onclick="generateAudio()" id="ttsBtn">🔊 生成音频</button>
+      <button class="test-btn" onclick="generateSingle()" id="singleBtn">🧪 单篇测试</button>
     </div>
   </div>
 </div>
@@ -287,6 +374,54 @@
   <div class="loading">
     <div class="spinner"></div>
     加载中...
+  </div>
+</div>
+
+<div class="modal-overlay" id="scriptModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>🎙️ AI 新闻播报稿</h2>
+      <button class="modal-close" onclick="closeScriptModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="scriptBody">
+      <div class="loading"><div class="spinner"></div>AI 正在生成播报文字稿，请稍候...</div>
+    </div>
+    <div class="modal-footer">
+      <span class="info" id="scriptInfo"></span>
+      <button class="primary" id="downloadBtn" onclick="downloadScript()" style="display:none">📥 下载 Markdown</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="audioModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>🔊 新闻播报音频</h2>
+      <button class="modal-close" onclick="closeAudioModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="audioBody">
+      <div class="loading"><div class="spinner"></div>正在生成播报音频，请稍候...</div>
+    </div>
+    <div class="modal-footer">
+      <span class="info" id="audioInfo"></span>
+      <a id="audioDownloadLink" style="display:none" class="primary" download>📥 下载音频</a>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="singleModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>🧪 单篇新闻测试</h2>
+      <button class="modal-close" onclick="closeSingleModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="singleBody">
+      <div class="loading"><div class="spinner"></div>正在处理单篇新闻（生成播报稿 + 音频），请稍候...</div>
+    </div>
+    <div class="modal-footer">
+      <span class="info" id="singleInfo"></span>
+      <a id="singleDownloadLink" style="display:none" class="primary" download>📥 下载音频</a>
+    </div>
   </div>
 </div>
 
@@ -445,6 +580,224 @@ document.getElementById('searchInput').addEventListener('input', (e) => {
 
 loadStats();
 loadArticles();
+
+let currentScript = '';
+let generateBusy = false;
+
+async function generateScript() {
+  if (generateBusy) return;
+  generateBusy = true;
+
+  const modal = document.getElementById('scriptModal');
+  const body = document.getElementById('scriptBody');
+  const info = document.getElementById('scriptInfo');
+  const dlBtn = document.getElementById('downloadBtn');
+  const aiBtn = document.querySelector('.ai-btn');
+
+  body.innerHTML = '<div class="loading"><div class="spinner"></div>AI 正在生成播报文字稿，请稍候...</div>';
+  info.textContent = '';
+  dlBtn.style.display = 'none';
+  modal.classList.add('active');
+  aiBtn.textContent = '⏳ 生成中...';
+  aiBtn.disabled = true;
+
+  try {
+    const res = await fetch('/api/generate-script', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        source: currentSource || undefined,
+        category: currentCategory || undefined,
+        keyword: currentKeyword || undefined,
+        limit: 20,
+      }),
+    });
+    const data = await res.json();
+
+    if (data.error) {
+      body.innerHTML = `<div class="empty-state"><div class="icon">⚠️</div><div>${escapeHtml(data.error)}</div></div>`;
+    } else {
+      currentScript = data.script;
+      body.innerHTML = `<pre>${escapeHtml(data.script)}</pre>`;
+      info.textContent = `基于 ${data.article_count} 篇文章生成 | 模型: ${data.model} | 已保存: ${data.output_path}`;
+      dlBtn.style.display = 'inline-block';
+    }
+  } catch (e) {
+    body.innerHTML = `<div class="empty-state"><div class="icon">❌</div><div>请求失败: ${escapeHtml(e.message)}</div></div>`;
+  } finally {
+    generateBusy = false;
+    aiBtn.textContent = '🎙️ AI 播报稿';
+    aiBtn.disabled = false;
+  }
+}
+
+function closeScriptModal() {
+  document.getElementById('scriptModal').classList.remove('active');
+}
+
+function downloadScript() {
+  if (!currentScript) return;
+  const blob = new Blob([currentScript], { type: 'text/markdown;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const date = new Date().toISOString().slice(0, 10);
+  a.download = `broadcast_${date}.md`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById('scriptModal').addEventListener('click', function(e) {
+  if (e.target === this) closeScriptModal();
+});
+
+let audioBusy = false;
+
+async function generateAudio() {
+  if (audioBusy) return;
+  audioBusy = true;
+
+  const modal = document.getElementById('audioModal');
+  const body = document.getElementById('audioBody');
+  const info = document.getElementById('audioInfo');
+  const dlLink = document.getElementById('audioDownloadLink');
+  const ttsBtn = document.getElementById('ttsBtn');
+
+  body.innerHTML = '<div class="loading"><div class="spinner"></div>正在生成播报音频，请稍候...</div>';
+  info.textContent = '';
+  dlLink.style.display = 'none';
+  modal.classList.add('active');
+  ttsBtn.textContent = '⏳ 生成中...';
+  ttsBtn.disabled = true;
+
+  try {
+    const payload = {};
+    if (currentScript) {
+      payload.script = currentScript;
+    }
+
+    const res = await fetch('/api/generate-audio', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+
+    if (data.error) {
+      body.innerHTML = `<div class="empty-state"><div class="icon">⚠️</div><div>${escapeHtml(data.error)}</div></div>`;
+    } else {
+      const audioHtml = `
+        <div style="text-align:center; padding: 20px 0;">
+          <div style="font-size: 48px; margin-bottom: 16px;">🎵</div>
+          <audio controls style="width: 100%; max-width: 500px;" autoplay>
+            <source src="${data.audio_url}" type="audio/mpeg">
+            您的浏览器不支持音频播放
+          </audio>
+        </div>
+      `;
+      body.innerHTML = audioHtml;
+      info.textContent = `文本长度: ${data.text_length} 字 | 模型: ${data.model} | 已保存: ${data.output_path}`;
+      dlLink.href = data.audio_url;
+      dlLink.style.display = 'inline-block';
+    }
+  } catch (e) {
+    body.innerHTML = `<div class="empty-state"><div class="icon">❌</div><div>请求失败: ${escapeHtml(e.message)}</div></div>`;
+  } finally {
+    audioBusy = false;
+    ttsBtn.textContent = '🔊 生成音频';
+    ttsBtn.disabled = false;
+  }
+}
+
+function closeAudioModal() {
+  const modal = document.getElementById('audioModal');
+  const audio = modal.querySelector('audio');
+  if (audio) audio.pause();
+  modal.classList.remove('active');
+}
+
+document.getElementById('audioModal').addEventListener('click', function(e) {
+  if (e.target === this) closeAudioModal();
+});
+
+let singleBusy = false;
+
+async function generateSingle() {
+  if (singleBusy) return;
+  singleBusy = true;
+
+  const modal = document.getElementById('singleModal');
+  const body = document.getElementById('singleBody');
+  const info = document.getElementById('singleInfo');
+  const dlLink = document.getElementById('singleDownloadLink');
+  const btn = document.getElementById('singleBtn');
+
+  body.innerHTML = '<div class="loading"><div class="spinner"></div>正在处理单篇新闻（生成播报稿 + 音频），请稍候...</div>';
+  info.textContent = '';
+  dlLink.style.display = 'none';
+  modal.classList.add('active');
+  btn.textContent = '⏳ 处理中...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('/api/generate-single', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({}),
+    });
+    const data = await res.json();
+
+    if (data.error && !data.script) {
+      body.innerHTML = `<div class="empty-state"><div class="icon">⚠️</div><div>${escapeHtml(data.error)}</div></div>`;
+    } else if (data.error && data.script) {
+      body.innerHTML = `
+        <div style="margin-bottom:16px;padding:10px 14px;background:#422006;border:1px solid #f59e0b;border-radius:8px;color:#fbbf24;font-size:13px;">
+          ⚠️ 播报稿已生成，但音频生成失败：${escapeHtml(data.error)}
+        </div>
+        <h3 style="margin-bottom:8px;color:var(--text-secondary);font-size:13px;">📰 ${escapeHtml(data.title)}</h3>
+        <pre style="white-space:pre-wrap;word-wrap:break-word;font-size:14px;line-height:1.8;">${escapeHtml(data.script)}</pre>
+      `;
+      info.textContent = `播报稿已保存: ${data.script_path}`;
+    } else {
+      body.innerHTML = `
+        <div style="text-align:center; padding: 20px 0;">
+          <div style="font-size: 48px; margin-bottom: 16px;">🎵</div>
+          <h3 style="margin-bottom:8px;color:var(--text-secondary);font-size:13px;">📰 ${escapeHtml(data.title)}</h3>
+          <audio controls style="width: 100%; max-width: 500px;" autoplay>
+            <source src="${data.audio_url}" type="audio/mpeg">
+            您的浏览器不支持音频播放
+          </audio>
+          <details style="text-align:left;margin-top:16px;">
+            <summary style="cursor:pointer;color:var(--accent);font-size:13px;">查看播报稿全文</summary>
+            <pre style="white-space:pre-wrap;word-wrap:break-word;font-size:14px;line-height:1.8;margin-top:8px;">${escapeHtml(data.script)}</pre>
+          </details>
+        </div>
+      `;
+      info.textContent = `文本: ${data.text_length} 字 | LLM: ${data.model} | TTS: ${data.tts_model}`;
+      dlLink.href = data.audio_url;
+      dlLink.style.display = 'inline-block';
+    }
+  } catch (e) {
+    body.innerHTML = `<div class="empty-state"><div class="icon">❌</div><div>请求失败: ${escapeHtml(e.message)}</div></div>`;
+  } finally {
+    singleBusy = false;
+    btn.textContent = '🧪 单篇测试';
+    btn.disabled = false;
+  }
+}
+
+function closeSingleModal() {
+  const modal = document.getElementById('singleModal');
+  const audio = modal.querySelector('audio');
+  if (audio) audio.pause();
+  modal.classList.remove('active');
+}
+
+document.getElementById('singleModal').addEventListener('click', function(e) {
+  if (e.target === this) closeSingleModal();
+});
 </script>
 </body>
 </html>

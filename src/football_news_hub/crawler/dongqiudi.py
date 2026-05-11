@@ -78,6 +78,50 @@ _EXTRACT_JS = """
 }
 """
 
+_CONTENT_EXTRACT_JS = """
+() => {
+    const selectors = [
+        '.article-content',
+        '.news-content',
+        '.detail-content',
+        '.content',
+        '#article_content',
+        '.post-content',
+        '.entry-content',
+        '.article-body',
+        '.news-body',
+        '.text',
+    ];
+
+    for (const sel of selectors) {
+        const el = document.querySelector(sel);
+        if (el) {
+            const paragraphs = el.querySelectorAll('p');
+            if (paragraphs.length > 0) {
+                return Array.from(paragraphs)
+                    .map(p => p.textContent.trim())
+                    .filter(t => t.length > 0)
+                    .join('\\n\\n');
+            }
+            const text = el.textContent.trim();
+            if (text.length > 50) {
+                return text;
+            }
+        }
+    }
+
+    const allParagraphs = document.querySelectorAll('p');
+    const longParagraphs = Array.from(allParagraphs)
+        .map(p => p.textContent.trim())
+        .filter(t => t.length > 20);
+    if (longParagraphs.length >= 3) {
+        return longParagraphs.join('\\n\\n');
+    }
+
+    return null;
+}
+"""
+
 
 def _parse_comment_count(text: str | None) -> int | None:
     if not text:
@@ -120,6 +164,10 @@ class DongqiudiCrawler(BaseCrawler):
     async def on_page_loaded(self, page: Page) -> None:
         await page.wait_for_load_state("networkidle", timeout=15_000)
         await page.wait_for_timeout(2000)
+
+    async def parse_article_content(self, page: Page) -> str | None:
+        content = await page.evaluate(_CONTENT_EXTRACT_JS)
+        return content
 
     async def parse_article_list(self, page: Page) -> list[Article]:
         raw_articles = await page.evaluate(_EXTRACT_JS)

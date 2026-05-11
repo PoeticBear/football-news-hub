@@ -32,13 +32,35 @@ class SourceConfig(BaseModel):
     selectors: SelectorConfig
     max_pages: int = 1
     request_delay: float = Field(default=2.0, description="Delay between page requests in seconds")
+    incremental_max_pages: int = Field(default=5, description="Max pages for incremental crawl")
+    stop_on_seen_articles: bool = Field(default=True, description="Stop crawling when encountering already seen articles")
+    fetch_content: bool = Field(default=False, description="Fetch full article content")
+    content_delay: float = Field(default=1.0, description="Delay between content fetch requests in seconds")
     extra: dict | None = None
+
+
+class LLMConfig(BaseModel):
+    provider: str = "minimax"
+    api_key: str = ""
+    base_url: str = "https://api.minimaxi.com/v1"
+    model: str = "MiniMax-M2.5"
+    output_dir: str = "data/scripts"
+
+
+class TTSConfig(BaseModel):
+    model: str = "speech-2.8-hd"
+    voice_id: str = "moss_audio_ce44fc67-7ce3-11f0-8de5-96e35d26fb85"
+    speed: float = 1.0
+    emotion: str = "calm"
+    output_dir: str = "data/audio"
 
 
 class AppConfig(BaseModel):
     sources: list[SourceConfig]
     storage_path: str = "data/articles.db"
     log_level: str = "INFO"
+    llm: LLMConfig = Field(default_factory=LLMConfig)
+    tts: TTSConfig = Field(default_factory=TTSConfig)
 
     def get_source(self, name: SourceName) -> SourceConfig | None:
         for source in self.sources:
