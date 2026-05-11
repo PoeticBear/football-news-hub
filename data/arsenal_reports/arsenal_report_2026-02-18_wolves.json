@@ -1,0 +1,45 @@
+{
+  "match_info": {
+    "url": "https://www.arsenal.com/fixture/arsenal/2026-Feb-18/wolves",
+    "report_url": "https://www.arsenal.com/fixture/arsenal/2026-Feb-18/wolves-2-2-arsenal-match-report",
+    "date": "2026-02-18T20:00:00",
+    "score": "2 - 2",
+    "opponent": "Wolves",
+    "competition": "Premier League",
+    "venue": "Molineux Stadium"
+  },
+  "report": {
+    "title": "Wolves 2 - 2 Arsenal - Match Report",
+    "author": "Jonathon Rogers",
+    "published_at": "2026-02-18 22:00:00",
+    "image_url": "https://www.arsenal.com/sites/default/files/styles/desktop_16x9/public/images/martinelli-wolves_cen0l18j.jpg?h=68d83a20&auto=webp&itok=SVMDjSss",
+    "description": "We let a two-goal lead slip to draw at Molineux",
+    "article_body": "A late goal by Tom Edozie saw two points slip from our grasp as we let a two-goal lead slip to draw 2-2 at Wolverhampton Wanderers.\n\nIn a meeting between the sides top and bottom of the table, Bukayo Saka put us in front after just five minutes before Piero Hincapie’s first goal for the club handed us a two-goal cushion 10 minutes after the restart.\n\nHowever the two-goal lead was quickly snuffed out by Hugo Bueno, and in stoppage time a shot from Edozie struck the post and despite Riccardo Calafiori's best efforts ended up in the net to deny us the victory.\n\nHaving experimented by playing Saka through the middle against Wigan Athletic in the FA Cup, Mikel Arteta opted to do it again and it paid off in just the fifth minute. With our first real attack, Gabriel Martinelli laid the ball off to Declan Rice on the edge of the box, and his clipped cross was perfect for Saka to run onto and nod past Jose Sa from close range to end a 15-game wait for a goal.\n\nThat also meant we had scored in each of our last 37 meetings with Wolves in all competitions - the second longest run in Football League history - and we swiftly went about looking for a second. Rice wasn’t too far away when he took aim for the bottom corner, and then Sa made a double save when he kept out a Noni Madueke curler as well as Martinelli’s rebound.\n\nHowever as the sleet came down, the wind picked up and the temperature dropped, there was little to warm either set of supporters as the first half ebbed away.\n\nA series of injury stoppages to allow Wolves players treatment stemmed the flow, and while Madueke did head just wide on 34 minutes, David Raya didn’t dirty his gloves before the break, although Andre saw an effort from range skid off the greasy turf but slide wide of the post in stoppage time.\n\nWolves had lost 10 of their 13 Premier League home games going into this one, but when Adam Armstrong flashed a shot narrowly over the top, the Old Gold supporters began believing. However 10 minutes after the restart, we finally found the second goal to dampen their spirits.\n\nA fine through–ball by Gabriel dissected the Wolves lines and Hincapie made a great run to get inside the box. He held off the challenge of a defender before firing over Sa. A late offside flag initially curtailed his joy, but VAR found the Ecuadorian to be onside and awarded him his first Gunners goal after 23 games, and a second chance to celebrate.\n\nBut our two-goal advantage lasted just five minutes as Wolves fought straight back. There looked little on when the ball came to right wing-back Hugo Bueno on the edge of the area, but he got it onto his left foot before sweeping it into the top corner over Raya to score in spectacular style.\n\nThere was still half an hour still to play, but in that time, perhaps struggling with the conditions, neither side managed to cause either goalkeeper any major problems until the final stages.\n\nAn accidental collision late on saw Leandro Trossard replaced by Calafiori, but moments after his introduction he unfortunately found himself in the middle of more late drama against Wolves.\n\nA cross into the area saw some miscommunication between Gabriel and Raya and the keeper inadvertently punched out to 19-year-old Edozie, making his Premier League debut. He sent a shot golawards which struck the post before hitting Calafiori on the line, and agonisingly for us, it crept into the net to deny us the victory that we desired.\n\nSunday brings the north London derby at Tottenham Hotspur, before we enjoy a rare week off between matches until Chelsea head to N5 on Sunday, March 1. We then head to Brighton &amp; Hove Albion the following Wednesday.\n\nGET READY FOR BUDAPEST WITH THE LATEST NEWS, FEATURES AND VIDEOS\n\nCheck out our exclusive Wallpapers for desktop and mobile today!",
+    "scorers": [
+      {
+        "player": "Hugo Bueno",
+        "minute": 60,
+        "type": null,
+        "team": "Wolves"
+      },
+      {
+        "player": "Calafiori",
+        "minute": "90 + 3",
+        "type": "og",
+        "team": "Wolves"
+      },
+      {
+        "player": "Saka",
+        "minute": 4,
+        "type": null,
+        "team": "Arsenal"
+      },
+      {
+        "player": "Hincapie",
+        "minute": 55,
+        "type": null,
+        "team": "Arsenal"
+      }
+    ]
+  }
+}

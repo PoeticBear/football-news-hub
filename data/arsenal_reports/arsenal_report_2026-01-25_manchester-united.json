@@ -1,0 +1,51 @@
+{
+  "match_info": {
+    "url": "https://www.arsenal.com/fixture/arsenal/2026-Jan-25/manchester-united",
+    "report_url": "https://www.arsenal.com/fixture/arsenal/2026-Jan-25/arsenal-2-3-manchester-united-match-report",
+    "date": "2026-01-25T16:30:00",
+    "score": "2 - 3",
+    "opponent": "Manchester United",
+    "competition": "Premier League",
+    "venue": "Emirates Stadium"
+  },
+  "report": {
+    "title": "Arsenal 2 - 3 Manchester United - Match Report",
+    "author": "Josh James",
+    "published_at": "2026-01-25 18:27:00",
+    "image_url": "https://www.arsenal.com/sites/default/files/styles/desktop_16x9/public/images/GettyImages-2258130587%20%281%29%20%281%29_trdilqc7.jpg?h=74101144&auto=webp&itok=jNYz1GiZ",
+    "description": "The summary of Sunday's Premier League contest at Emirates Stadium",
+    "article_body": "Our unbeaten home record this season came to an end on a disappointing evening in north London.&nbsp;\n\nAfter an impressive opening half hour, we went ahead when Lisandro Martinez put through his own net while Jurrien Timber tried to get his toe on a Martin Odegaard shot.\n\nBut a loose backpass from Martin Zubimendi allowed Bryan Mbeumo a simple equaliser and Patrick Dorgu powered home a screamer after the break.&nbsp;\n\nMikel Merino scrambled home an equaliser late on, but United scored another goal from long range shortly afterwards to win it, when Matheus Cunha smashed into the bottom corner.&nbsp;\n\nAfter an unprecedented sequence of four away games in four different competitions within the space of just 10 days, we were back in front of the Emirates Stadium faithful, looking to re-establish our healthy lead at the top of the Premier League table.\n\nWe controlled the opening 10 minutes, which culminated with Bukayo Saka winning a corner after a driving run into the area. The set-piece was cleared to Leandro Trossard, but his first-time effort at an awkward height looped over the bar.&nbsp;\n\nDeclan Rice had our next chance, created when Martin Odegaard slipped a clever ball to him in midfield. Rice swapped passes with the overlapping William Saliba, but was then closed down as he got his shot away.&nbsp;\n\nRice turned provider from a set piece shortly afterwards, swinging in an inviting free-kick onto the head of the towering Zubimendi, but Senne Lammens was equal to it with a good reaction parry.\n\nOur forwards were seeing plenty of the ball in the opening 25 minutes, but it was a United defender who gave us the breakthrough.\n\nFirst of all Saka showed he has feathers in his boots with a wonderful touch to bring a Piero Hincapie cross under his spell instantly. He cut it back to Odegaard, and his first-time shot was diverted past Lammens by Martinez under pressure from Jurrien Timber at close range.\n\nUnited had the chance to equalise almost instantly, only for Bruno Fernandes to stab wide after a counter-attack. He had another chance moments later inside the area as the visitors responded well to falling behind, but this time Saliba did just enough to deny him with a sliding challenge.\n\nWe were coming under pressure since taking the lead, but the equaliser came as a result of our own mistake. Zubimendi’s attempted first-time pass back to David Raya was misplaced, and Mbeumo gobbled up the chance by taking a touch and rolling his shot home. Level again.&nbsp;\n\nWe had been the better side in the first half, but five minutes after the restart United went ahead. There looked to be a touch of handball against Dorgu as he controlled a bouncing ball in midfield. The referee waved play on though and the Dane rifled his rising shot home in off the crossbar from 20 yards out. The goal stood after a brief VAR review.&nbsp;\n\nMikel Arteta responded with a rare quadruple substitution before an hour had passed, but we continued to struggle to find the verve we had shown in the opening half hour of the game.\n\nAs we entered the final 10 minutes, Saka had a low shot that nearly caught Lammens out at his near post. From the resulting corner there was a real scramble, before one of the subs, Merino prodded the ball just over the line.\n\nHope and noise once again filled Emirates Stadium, but parity lasted just a couple of minutes. This time Cunha fired home an inch-perfect finish from outside the area, finding the bottom corner to put United back ahead.\n\nWe rolled into seven additional minutes, but the wind had been knocked out of our sails, and we fell to our first home defeat of the season.&nbsp;\n\nThis was Manchester United’s first comeback victory away to us in the Premier League since February 2005 (a 4-2 victory); they had trailed on 12 occasions in the period since then, losing 11 of them (D1).\n\nWe suffered our first Premier League defeat at Emirates Stadium since last May (v Bournemouth). Today was just the second home league game we had trailed in at any point in this season (also v Manchester City), while 38% of their league goals conceded at home this term occurred in this match (3/8).\n\nWe conceded 3+ goals in a match for the first time since December 2023 (v Luton), ending a run of 121 matches across all competitions without conceding more than twice.\n\nWe have profited from more own goals than any other Premier League team in all competitions this season (6). All six of those have come since the start of December, which is at least twice as many as any other top-flight English side has benefited from in the same period (3 for Manchester City).\n\nManchester United were the first visiting team to score 2+ goals from outside the box away to us in the Premier League since Tottenham in October 2008.\n\nBruno Fernandes is the first United player since Wayne Rooney (2012/13 and 2013/14) to make 10+ assists in consecutive Premier League seasons.\n\nWe round off our Champions League league phase on Wednesday night, at home to Kairat Almaty. We have already secured a top-two place in the 36-team league, ensuring top-seed status for the knockout rounds. We are back in Premier League action next Saturday, away to Leeds United.\n\nGET READY FOR BUDAPEST WITH THE LATEST NEWS, FEATURES AND VIDEOS\n\nCheck out our exclusive Wallpapers for desktop and mobile today!",
+    "scorers": [
+      {
+        "player": "Lisandro Martínez",
+        "minute": 28,
+        "type": "og",
+        "team": "Arsenal"
+      },
+      {
+        "player": "Merino",
+        "minute": 83,
+        "type": null,
+        "team": "Arsenal"
+      },
+      {
+        "player": "B. Mbeumo",
+        "minute": 36,
+        "type": null,
+        "team": "Manchester United"
+      },
+      {
+        "player": "P. Dorgu",
+        "minute": 49,
+        "type": null,
+        "team": "Manchester United"
+      },
+      {
+        "player": "Matheus Cunha",
+        "minute": 86,
+        "type": null,
+        "team": "Manchester United"
+      }
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "match_info": {
+    "url": "https://www.arsenal.com/fixture/arsenal/2025-Jul-27/newcastle-united",
+    "report_url": "https://www.arsenal.com/fixture/arsenal/2025-Jul-27/arsenal-3-2-newcastle-united-match-report",
+    "date": "2025-07-27T12:30:00",
+    "score": "3 - 2",
+    "opponent": "Newcastle United",
+    "competition": "Club Friendlies",
+    "venue": "National Stadium"
+  },
+  "report": {
+    "title": "Arsenal 3 - 2 Newcastle United - Match Report",
+    "author": "Josh James",
+    "published_at": "2025-07-27 14:30:00",
+    "image_url": "https://www.arsenal.com/sites/default/files/styles/desktop_16x9/public/images/report_2_w8rkdygr.png?h=d1cb525d&auto=webp&itok=Txi_jOUC",
+    "description": "Goals from Merino and Odegaard gave us victory in our second pre-season friendly in Singapore",
+    "article_body": "Martin Odegaard scored a late penalty - won by Max Dowman - to secure a 3-2 victory over Newcastle in an intensive pre-season friendly in Singapore.&nbsp;\n\nTwo goals in as many first-half minutes had initially turned the game in our favour after Anthony Elanga had given his new club an early lead with a fortunate goal that bobbled in beyond David Raya.\n\nKai Havertz was involved in both our goals, setting up Mikel Merino with a neat lay off inside the area, before fizzing in a dangerous cross that was crashed into his own net by Newcastle defender Alex Murphy.\n\nThe Magpies levelled through a Jacob Murphy drive in the second-half but &nbsp;Odegaard scoredfrom 12 yards late on to secure another pre-season win.\n\nSo that concludes the first leg of our 2025 Asia Tour, and our record in the National Stadium here over the past ten years now reads played six, won five, drawn one – the love between Arsenal and Singapore is certainly mutual.\n\nThe Singapore National Stadium reached fever pitch shortly before kick-off when Viktor Gyokeres – fresh off his flight from London – was paraded on the pitch.\n\nThe Arsenal supporters greatly outnumbered their Newcastle counterparts in the stadium, and they gave our new striker the most rapturous of receptions.\n\nBut it was the Toon Army who were celebrating first. After just five minutes Sandro Tonali’s cross from the right found Elanga in the middle of the box. He scuffed his first-time shot, off his standing foot, but that only served to deceive David Raya, as the ball looped beyond our wrong-footed goalkeeper.\n\nWe responded well in a frantic opening, and Kai Havertz headed over from a central position before Leandro Trossard had a fierce drive blocked.\n\nBukayo Saka saw plenty of the ball on the right flack in the opening 15 minutes and after running at Dan Burn the ball fell invitingly for Ben White, but he blasted over.\n\nAt the other end another cut back from the right fell to Bruno Guimaraes, but White was on hand to hack the ball clear after Raya parried the initial shot.\n\nJust after the water break, we levelled thanks to some excellent play by Merino. He won the ball outside the area, and quickly fed a pass into Kai Havertz. The German laid it off brilliantly back to Merino who sweetly dispatched his shot into the bottom corner against his former team.\n\nBarely a minute later we were ahead, and Havertz was instrumental again. His dangerous cross from the left looked destined to reach Saka at the far post, before Alex Murphy thumped the ball into his own net.\n\nThe complexion of the game had changed completely within the space of 90 seconds.\n\nMikel Arteta made just the one change at the break, bringing on Martin Odegaard for Ethan Nwaneri, though shortly afterwards Jakub Kiwior replaced Riccardo Calafiori.\n\nNewcastle hauled themselves level when Murphy squeezed his low shot just inside the post through a crowded penalty area.\n\nMax Dowman was also brought on and instantly injected some energy into the team. He forced a low save from Nick Pope after an incisive run from the right and looked full of confidence once again. Soon afterwards he drew a save from replacement goalkeeper John Ruddy as he continued to look dangerous with the ball at his feet.\n\nNewcastle had been served warning, but they could do nothing when he next burst into the box, and the referee awarded a penalty when Joelinton brought him down. Odegaard duly dispatched the spot kick to make it two wins from two in Singapore.\n\nGET READY FOR BUDAPEST WITH THE LATEST NEWS, FEATURES AND VIDEOS\n\nCheck out our exclusive Wallpapers for desktop and mobile today!",
+    "scorers": [
+      {
+        "player": "Merino",
+        "minute": 32,
+        "type": null,
+        "team": "Arsenal"
+      },
+      {
+        "player": "A. Murphy",
+        "minute": 34,
+        "type": "og",
+        "team": "Arsenal"
+      },
+      {
+        "player": "Odegaard",
+        "minute": 83,
+        "type": "pen",
+        "team": "Arsenal"
+      },
+      {
+        "player": "A. Elanga",
+        "minute": 5,
+        "type": null,
+        "team": "Newcastle United"
+      },
+      {
+        "player": "J. Murphy",
+        "minute": 57,
+        "type": null,
+        "team": "Newcastle United"
+      }
+    ]
+  }
+}
